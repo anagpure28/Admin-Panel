@@ -3,7 +3,7 @@ import { DELETE_PRODUCT_SUCCESS, GET_PRODUCT_SUCCESS, PATCH_PRODUCT_SUCCESS, POS
 
 export const addProduct = (newProduct) => (dispatch) => {
     dispatch({type: PRODUCT_REQUEST});
-    axios.post("http://localhost:8080/products", newProduct).then((res) => {
+    axios.post("https://63987374fe03352a94d1697f.mockapi.io/signup", newProduct).then((res) => {
         console.log(res.data);
         dispatch({type: POST_PRODUCT_SUCCESS});
     }).catch((err)=> {
@@ -14,7 +14,7 @@ export const addProduct = (newProduct) => (dispatch) => {
 
 export const getProducts = (paramObj) => (dispatch) => {
     dispatch({type: PRODUCT_REQUEST})
-    axios.get("http://localhost:8080/products", paramObj).then((res) => {
+    axios.get("https://63987374fe03352a94d1697f.mockapi.io/signup", paramObj).then((res) => {
         dispatch({type: GET_PRODUCT_SUCCESS, payload: res.data})
     }).catch((err) => {
         dispatch({type: PRODUCT_FAILURE})
@@ -23,7 +23,7 @@ export const getProducts = (paramObj) => (dispatch) => {
 
 export const editProduct = (id, data) => (dispatch) => {
     dispatch({type: PRODUCT_REQUEST})
-    return axios.patch(`http://localhost:8080/products/${id}`, data).then((res) => {
+    return axios.patch(`https://63987374fe03352a94d1697f.mockapi.io/signup/${id}`, data).then((res) => {
         dispatch({type: PATCH_PRODUCT_SUCCESS, payload: res.data})
     }).catch((err) => {
         dispatch({type: PRODUCT_FAILURE})
@@ -34,12 +34,12 @@ export const deleteProduct = (id) => (dispatch) => {
     dispatch({type: PRODUCT_REQUEST})
 
     let payload = []
-    axios.get("http://localhost:8080/products").then((res)=> {
+    axios.get("https://63987374fe03352a94d1697f.mockapi.io/signup").then((res)=> {
         payload = res.data.filter((el) => el.id!=id);
         dispatch(getProducts(payload))
     })
 
-    return axios.delete(`http://localhost:8080/products/${id}`).then((res) => {
+    return axios.delete(`https://63987374fe03352a94d1697f.mockapi.io/signup/${id}`).then((res) => {
         dispatch({type: DELETE_PRODUCT_SUCCESS, payload})
     }).catch((err) => {
         dispatch({type: PRODUCT_FAILURE})
