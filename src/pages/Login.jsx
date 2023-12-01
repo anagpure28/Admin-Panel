@@ -9,21 +9,25 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const auth = useSelector((store)=> store.authReducer.isAuth)
   const err = useSelector((store)=> store.authReducer.isErrorMessage)
 
   const handleLogin = () => {
-    const userData = {email, password};
+    const userData = {email, password}; 
     dispatch(login(userData)).then(() => {
-      navigate(location.state)
+      if(location.state){
+        navigate(location.state);
+      }else{
+        navigate("/");
+      }
     })
   }  
 
   return (
     <DIV auth={auth} error={err}>
-      <h1>{auth ? "Login Successfull!" : "Login to Continue"}</h1>
+      <h1>{auth ? "Login Successful!" : "Login to Continue"}</h1>
       <input
         type="email"
         placeholder="User Email"

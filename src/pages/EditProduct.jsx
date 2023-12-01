@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { editProduct } from "../redux/productReducer/action";
 
@@ -8,7 +8,8 @@ export const EditProduct = () => {
   const { id } = useParams();
   const [data, setData] = useState("");
   const [success, setSuccess] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const product = useSelector((store) => store.productReducer.products);
 
@@ -24,6 +25,9 @@ export const EditProduct = () => {
     dispatch(editProduct(id,data)).then(() => {
       setSuccess(true)
     })
+    setTimeout(() => {
+      navigate("/")
+    }, 2500);
   }
 
   useEffect(() => {
@@ -35,10 +39,10 @@ export const EditProduct = () => {
 
   return (
     <DIV>
-      <form onSubmit={handleSubmit}>
+      <form success={success} onSubmit={handleSubmit}>
         <div className="div">
           <p>Edit Product: {id}</p>
-          <p>{success && "Product Edited Successfully!!"}</p>
+          <p className="success">{success ? "Product Edited Successfully!!" : ""}</p>
         </div>
         <input
           type="text"
@@ -116,6 +120,9 @@ const DIV = styled.div`
     flex-direction: column;
     gap: 20px;
     align-items: center;
+  }
+  .success{
+    color: ${({success}) => (success ? "" : "green")}
   }
   .div{
     width: 80%;

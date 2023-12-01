@@ -19,7 +19,6 @@ export const Navbar = () => {
     if (ref.current) {
       clearTimeout(ref.current);
     }
-
     ref.current = setTimeout(() => {
       // console.log("ggggg",paramObj)
       dispatch(getProducts(paramObj));
